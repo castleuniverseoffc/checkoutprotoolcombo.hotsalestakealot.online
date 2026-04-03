@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace Checkout</title>
+
+  <style>
+    /* ================= CSS ================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    .wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #e6e6e6;
+      padding: 18px 14px 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-img {
+      max-width: 150px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .card {
+      background: #fff;
+    }
+
+    .title {
+      text-align: center;
+      padding: 18px;
+      font-weight: 700;
+      font-size: 18px;
+      border-bottom: 1px solid #eee;
+      color: #1f2a37;
+    }
+
+    .section {
+      padding: 16px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .field label.muted {
+      color: #9a9a9a;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 42px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 0 12px;
+      font-size: 14px;
+      background: #fff;
+      color: #333;
+      outline: none;
+    }
+
+    .field input::placeholder {
+      color: #9a9a9a;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .save-btn {
+      width: 100%;
+      height: 48px;
+      background: #38c202;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .save-btn:hover,
+    .pay-btn:hover {
+      opacity: 0.95;
+    }
+
+    /* POPUP */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      z-index: 999;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 340px;
+      background: #f7f7f7;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-head {
+      background: #fff;
+      padding: 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      border-bottom: 1px solid #e6e6e6;
+      position: relative;
+      color: #1f2a37;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .panel {
+      padding: 14px;
+    }
+
+    .summary-box {
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      padding: 14px;
+    }
+
+    .product {
+      text-align: left;
+    }
+
+    .product-img {
+      width: 180px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 12px;
+      object-fit: contain;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .brand-row {
+      font-size: 12px;
+      color: #8b8b8b;
+      margin-bottom: 10px;
+    }
+
+    .line {
+      border-top: 1px solid #ededed;
+      margin: 10px 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      margin-top: 8px;
+      color: #333;
+    }
+
+    .price {
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .address-box {
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      padding: 12px;
+      margin-top: 14px;
+    }
+
+    .address-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .address-text {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .total {
+      background: #fdfdfd;
+      border-left: 3px solid #ffffff;
+      padding: 12px;
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total strong {
+      font-size: 14px;
+    }
+
+    .total .price {
+      font-size: 18px;
+    }
+
+    .pay-btn {
+      width: 100%;
+      height: 42px;
+      background: #38c202;
+      color: white;
+      border: none;
+      margin-top: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- ================= BODY ================= -->
+  <div class="wrap">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <!-- TROQUE A IMAGEM DO LOGOTIPO AQUI -->
+      <img 
+        src="logo-img.png.svg" 
+        alt="Logo" 
+        class="logo-img"
+      >
+    </div>
+
+    <!-- FORM -->
+    <div class="card">
+      <div class="title">Delivery Details</div>
+
+      <div class="section">
+        <div class="field">
+          <label>Recipient Name</label>
+          <input id="name" type="text" placeholder="Enter recipient name">
+        </div>
+
+        <div class="field">
+          <label>Recipient Mobile Number</label>
+          <input id="phone" type="text" placeholder="e.g. +234 ...">
+        </div>
+
+        <div class="field">
+          <label>Street Address</label>
+          <input id="address" type="text" placeholder="Enter street address">
+        </div>
+
+        <div class="field">
+          <label class="muted">Complex / Building (Optional)</label>
+          <input id="building" type="text" placeholder="Building name/unit">
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>Suburb</label>
+            <input id="suburb" type="text" placeholder="Suburb">
+          </div>
+
+          <div class="field">
+            <label>City / Town</label>
+            <input id="city" type="text" placeholder="City">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>Province</label>
+            <select id="province">
+              <option value="">Select Province</option>
+              <option>Gauteng</option>
+              <option>Limpopo</option>
+              <option>Mpumalanga</option>
+              <option>KwaZulu-Natal</option>
+              <option>Western Cape</option>
+              <option>Eastern Cape</option>
+              <option>North West</option>
+              <option>Free State</option>
+              <option>Northern Cape</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Postal Code</label>
+            <input id="postal" type="text" placeholder="Postal code">
+          </div>
+        </div>
+
+        <button class="save-btn" id="save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP -->
+  <div class="overlay" id="popup">
+    <div class="modal">
+
+      <div class="modal-head">
+        Order Summary
+        <button class="close-btn" id="close">&times;</button>
+      </div>
+
+      <div class="panel">
+        <div class="summary-box">
+          <div class="product">
+            <!-- TROQUE A IMAGEM DO PRODUTO AQUI -->
+            <img 
+              src="product-img.png" 
+              alt="Product" 
+              class="product-img"
+            >
+
+            <div class="product-name" id="productTitle">
+              Russell Hobbs 20L Electronic Microwave + Cordless Stainless Steel Kettle RHSSK04
+            </div>
+
+            <div class="brand-row">Russell Hobbs</div>
+
+            <div class="line"></div>
+
+            <div class="row">
+              <span>Quantity</span>
+              <strong>1</strong>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="row">
+              <span>Subtotal</span>
+              <span class="price">R 599.00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="address-box">
+          <div class="address-title">Delivery Address</div>
+          <div class="address-text" id="previewAddress">
+            Province: Select Province
+          </div>
+        </div>
+
+        <div class="total">
+          <strong>TOTAL</strong>
+          <strong class="price">R 599.00</strong>
+        </div>
+
+        <a href="https://app.quorapay.online/pay/a542834e-963d-4ca6-81f9-d165b48f7df8" class="pay-btn">PROCEED TO PAYMENT</a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    const saveButton = document.getElementById("save");
+    const popup = document.getElementById("popup");
+    const closeButton = document.getElementById("close");
+    const previewAddress = document.getElementById("previewAddress");
+
+    saveButton.addEventListener("click", function () {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const building = document.getElementById("building").value.trim();
+      const suburb = document.getElementById("suburb").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const province = document.getElementById("province").value;
+      const postal = document.getElementById("postal").value.trim();
+
+      previewAddress.innerHTML = `
+        ${name || "."}<br>
+        ${phone || "."}<br>
+        ${address || "."} ${building ? ", " + building : ""}<br>
+        ${suburb || "."} ${city ? ", " + city : ""}<br>
+        Province: ${province || "Select Province"} ${postal ? "| " + postal : ""}
+      `;
+
+      popup.classList.add("show");
+    });
+
+    closeButton.addEventListener("click", function () {
+      popup.classList.remove("show");
+    });
+
+    popup.addEventListener("click", function (e) {
+      if (e.target === popup) {
+        popup.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
