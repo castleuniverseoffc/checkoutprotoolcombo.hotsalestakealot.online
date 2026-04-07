@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-     <!-- UTMIFY PIXEL -->
+       <!-- UTMIFY PIXEL -->
 <script>
   window.pixelId = "6996a432bfc9769cbd9eddac";
   var a = document.createElement("script");
@@ -22,12 +22,24 @@
   ></script>
   <!-- END UTMIFY -->
   
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marketplace Checkout</title>
-
   <style>
-    /* ================= CSS ================= */
+    :root {
+      --bg: #f4f6f8;
+      --surface: #ffffff;
+      --surface-soft: #f9fafb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2fb100;
+      --primary-dark: #279500;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+      --max-width: 880px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -36,117 +48,195 @@
     }
 
     body {
-      background: #f5f5f5;
-      color: #222;
+      background:
+        radial-gradient(circle at top, rgba(47, 177, 0, 0.06), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.45;
     }
 
-    .wrap {
-      max-width: 480px;
-      margin: 0 auto;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: 100%;
       min-height: 100vh;
-      background: #fff;
+      padding: 20px 14px 32px;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
     }
 
     .topbar {
-      background: #fff;
-      border-bottom: 1px solid #e6e6e6;
-      padding: 18px 14px 12px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      border-radius: 18px;
+      padding: 16px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
     }
 
     .logo-img {
-      max-width: 150px;
+      max-width: 170px;
+      width: 100%;
       height: auto;
-      display: block;
       object-fit: contain;
     }
 
     .card {
-      background: #fff;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .title {
-      text-align: center;
-      padding: 18px;
+    .card-header {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #ffffff, #fbfcfd);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 700;
-      font-size: 18px;
-      border-bottom: 1px solid #eee;
-      color: #1f2a37;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 26px;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--muted);
     }
 
     .section {
-      padding: 16px;
+      padding: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .fields {
+      display: grid;
+      gap: 16px;
     }
 
     .field {
-      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .field label {
-      display: block;
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: #222;
+      color: var(--text);
     }
 
     .field label.muted {
-      color: #9a9a9a;
+      color: var(--muted);
     }
 
     .field input,
     .field select {
       width: 100%;
-      height: 42px;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      padding: 0 12px;
+      min-height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 14px;
       font-size: 14px;
       background: #fff;
-      color: #333;
+      color: var(--text);
       outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .field input::placeholder {
-      color: #9a9a9a;
+      color: #9ca3af;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(47, 177, 0, 0.55);
+      box-shadow: 0 0 0 4px rgba(47, 177, 0, 0.12);
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .save-btn {
+    .save-btn,
+    .pay-btn {
       width: 100%;
-      height: 48px;
-      background: #38c202;
-      color: #fff;
+      min-height: 52px;
       border: none;
-      border-radius: 24px;
+      border-radius: 999px;
       font-weight: 700;
       font-size: 15px;
       cursor: pointer;
-      margin-top: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .save-btn {
+      background: linear-gradient(180deg, #38c202, #2ea500);
+      color: #fff;
+      margin-top: 8px;
+      box-shadow: 0 12px 24px rgba(56, 194, 2, 0.22);
     }
 
     .save-btn:hover,
     .pay-btn:hover {
-      opacity: 0.95;
+      transform: translateY(-1px);
+      opacity: 0.98;
     }
 
-    /* POPUP */
+    .inline-summary-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(15, 23, 42, 0.62);
       display: none;
       justify-content: center;
       align-items: center;
       padding: 16px;
       z-index: 999;
+      backdrop-filter: blur(6px);
     }
 
     .overlay.show {
@@ -155,269 +245,356 @@
 
     .modal {
       width: 100%;
-      max-width: 340px;
-      background: #f7f7f7;
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      max-width: 560px;
+      max-height: min(92vh, 900px);
+      overflow-y: auto;
+      background: var(--surface);
+      border-radius: 22px;
+      overflow-x: hidden;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.24);
+      animation: modalIn 0.25s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .modal-head {
       background: #fff;
-      padding: 16px;
+      padding: 18px 20px;
       text-align: center;
       font-weight: 700;
-      font-size: 18px;
-      border-bottom: 1px solid #e6e6e6;
-      position: relative;
-      color: #1f2a37;
+      font-size: 19px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      color: var(--text);
     }
 
     .close-btn {
       position: absolute;
-      right: 12px;
-      top: 12px;
+      right: 14px;
+      top: 10px;
+      width: 36px;
+      height: 36px;
       border: none;
-      background: transparent;
+      border-radius: 50%;
+      background: #f3f4f6;
       font-size: 22px;
       cursor: pointer;
-      color: #666;
+      color: #4b5563;
     }
 
     .panel {
-      padding: 14px;
+      padding: 20px;
     }
 
-    .summary-box {
-      background: #fff;
-      border: 1px solid #e6e6e6;
-      border-radius: 3px;
-      padding: 14px;
-    }
-
-    .product {
-      text-align: left;
+    .product-media {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
     }
 
     .product-img {
-      width: 180px;
-      max-width: 100%;
+      width: 100%;
+      max-width: 220px;
       height: auto;
-      display: block;
-      margin: 0 auto 12px;
+      margin: 0 auto;
       object-fit: contain;
     }
 
     .product-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
-      line-height: 1.45;
-      color: #1f2937;
+      line-height: 1.5;
+      color: var(--text);
       margin-bottom: 8px;
     }
 
     .brand-row {
-      font-size: 12px;
-      color: #8b8b8b;
-      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
     }
 
-    .line {
-      border-top: 1px solid #ededed;
-      margin: 10px 0;
+    .summary-list {
+      display: grid;
+      gap: 14px;
     }
 
     .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 14px;
       font-size: 14px;
-      margin-top: 8px;
-      color: #333;
+      color: var(--text);
     }
 
+    .row span:last-child,
     .price {
-      color: #000000;
       font-weight: 700;
+      color: #111827;
     }
 
-    .address-box {
-      background: #fff;
-      border: 1px solid #e6e6e6;
-      border-radius: 3px;
-      padding: 12px;
-      margin-top: 14px;
+    .line {
+      border-top: 1px solid var(--border);
+      margin: 2px 0;
     }
 
-    .address-title {
+    .address-box,
+    .trust-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .address-title,
+    .trust-title {
       font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
     }
 
-    .address-text {
-      font-size: 12px;
-      color: #666;
+    .address-text,
+    .trust-text {
+      font-size: 13px;
+      color: var(--muted);
       line-height: 1.7;
+      word-break: break-word;
     }
 
     .total {
-      background: #fdfdfd;
-      border-left: 3px solid #ffffff;
-      padding: 12px;
-      margin-top: 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
-    .total strong {
+    .total strong:first-child {
       font-size: 14px;
+      letter-spacing: 0.04em;
     }
 
     .total .price {
-      font-size: 18px;
+      font-size: 24px;
     }
 
     .pay-btn {
-      width: 100%;
-      height: 42px;
-      background: #38c202;
-      color: white;
-      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: #111827;
+      color: #fff;
+      margin-top: 18px;
+      box-shadow: 0 14px 24px rgba(17, 24, 39, 0.16);
+    }
+
+    .helper {
       margin-top: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      border-radius: 2px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
     }
 
-    .pay-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
+    @media (max-width: 640px) {
+      .page {
+        padding: 12px 10px 24px;
+      }
 
+      .topbar,
+      .card-header,
+      .section,
+      .panel {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .card-title {
+        font-size: 22px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .modal {
+        max-width: 100%;
+        border-radius: 18px;
+      }
+
+      .modal-head {
+        font-size: 17px;
+        padding-right: 54px;
+      }
+
+      .product-name {
+        font-size: 15px;
+      }
+
+      .total {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .total .price {
+        font-size: 21px;
+      }
+
+      .pay-btn,
+      .save-btn {
+        min-height: 50px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .panel {
+        padding: 14px;
+      }
+
+      .modal-head {
+        padding: 16px 48px 16px 16px;
+      }
+
+      .row {
+        font-size: 13px;
+      }
+
+      .address-text,
+      .trust-text,
+      .helper {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
-
 <body>
-  <!-- ================= BODY ================= -->
-  <div class="wrap">
+  <div class="page">
+    <div class="container">
+      <div class="topbar">
+        <img src="logo-img.png.svg" alt="Logo" class="logo-img" />
+      </div>
 
-    <!-- TOP BAR -->
-    <div class="topbar">
-      <!-- TROQUE A IMAGEM DO LOGOTIPO AQUI -->
-      <img 
-        src="logo-img.png.svg" 
-        alt="Logo" 
-        class="logo-img"
-      >
-    </div>
-
-    <!-- FORM -->
-    <div class="card">
-      <div class="title">Delivery Details</div>
-
-      <div class="section">
-        <div class="field">
-          <label>Recipient Name</label>
-          <input id="name" type="text" placeholder="Enter recipient name">
+      <div class="card">
+        <div class="card-header">
+          <div class="eyebrow">Secure checkout</div>
+          <h1 class="card-title">Delivery Details</h1>
+          <p class="card-subtitle">Fill in your information carefully to complete your order without delays.</p>
         </div>
 
-        <div class="field">
-          <label>Recipient Mobile Number</label>
-          <input id="phone" type="text" placeholder="e.g. +234 ...">
-        </div>
+        <div class="section">
+          <div class="section-title">Customer information</div>
+          <div class="fields">
+            <div class="field">
+              <label for="name">Recipient Name</label>
+              <input id="name" type="text" placeholder="Enter recipient name" />
+            </div>
 
-        <div class="field">
-          <label>Street Address</label>
-          <input id="address" type="text" placeholder="Enter street address">
-        </div>
+            <div class="field">
+              <label for="phone">Recipient Mobile Number</label>
+              <input id="phone" type="text" placeholder="e.g. +27 ..." />
+            </div>
 
-        <div class="field">
-          <label class="muted">Complex / Building (Optional)</label>
-          <input id="building" type="text" placeholder="Building name/unit">
-        </div>
+            <div class="field">
+              <label for="address">Street Address</label>
+              <input id="address" type="text" placeholder="Enter street address" />
+            </div>
 
-        <div class="grid-2">
-          <div class="field">
-            <label>Suburb</label>
-            <input id="suburb" type="text" placeholder="Suburb">
+            <div class="field">
+              <label for="building" class="muted">Complex / Building (Optional)</label>
+              <input id="building" type="text" placeholder="Building name / unit" />
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="suburb">Suburb</label>
+                <input id="suburb" type="text" placeholder="Suburb" />
+              </div>
+
+              <div class="field">
+                <label for="city">City / Town</label>
+                <input id="city" type="text" placeholder="City" />
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="province">Province</label>
+                <select id="province">
+                  <option value="">Select Province</option>
+                  <option>Gauteng</option>
+                  <option>Limpopo</option>
+                  <option>Mpumalanga</option>
+                  <option>KwaZulu-Natal</option>
+                  <option>Western Cape</option>
+                  <option>Eastern Cape</option>
+                  <option>North West</option>
+                  <option>Free State</option>
+                  <option>Northern Cape</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="postal">Postal Code</label>
+                <input id="postal" type="text" placeholder="Postal code" />
+              </div>
+            </div>
+
+            <button class="save-btn" id="save" type="button">Save and review order</button>
+
+            </div>
           </div>
-
-          <div class="field">
-            <label>City / Town</label>
-            <input id="city" type="text" placeholder="City">
-          </div>
         </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label>Province</label>
-            <select id="province">
-              <option value="">Select Province</option>
-              <option>Gauteng</option>
-              <option>Limpopo</option>
-              <option>Mpumalanga</option>
-              <option>KwaZulu-Natal</option>
-              <option>Western Cape</option>
-              <option>Eastern Cape</option>
-              <option>North West</option>
-              <option>Free State</option>
-              <option>Northern Cape</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Postal Code</label>
-            <input id="postal" type="text" placeholder="Postal code">
-          </div>
-        </div>
-
-        <button class="save-btn" id="save">Save</button>
       </div>
     </div>
   </div>
 
-  <!-- POPUP -->
   <div class="overlay" id="popup">
     <div class="modal">
-
       <div class="modal-head">
         Order Summary
-        <button class="close-btn" id="close">&times;</button>
+        <button class="close-btn" id="close" aria-label="Close">&times;</button>
       </div>
 
       <div class="panel">
-        <div class="summary-box">
-          <div class="product">
-            <!-- TROQUE A IMAGEM DO PRODUTO AQUI -->
-            <img 
-              src="product-img.png" 
-              alt="Product" 
-              class="product-img"
-            >
+        <div class="product-media">
+          <img src="product-img.png" alt="Product" class="product-img" />
+        </div>
 
-            <div class="product-name" id="productTitle">
-              POINTEKX RHINO X21 – Pro Tool Combo 100X
-            </div>
+        <div class="product-name" id="productTitle">
+          POINTEKX RHINO X21 – Pro Tool Combo 100X
+        </div>
+        <div class="brand-row">POINTEKX RHINO</div>
 
-            <div class="brand-row">POINTEKX RHINO</div>
-
-            <div class="line"></div>
-
-            <div class="row">
-              <span>Quantity</span>
-              <strong>1</strong>
-            </div>
-
-            <div class="line"></div>
-
-            <div class="row">
-              <span>Subtotal</span>
-              <span class="price">R 297.00</span>
-            </div>
+        <div class="summary-list">
+          <div class="row">
+            <span>Quantity</span>
+            <span>1</span>
+          </div>
+          <div class="line"></div>
+          <div class="row">
+            <span>Subtotal</span>
+            <span class="price">R 297.00</span>
           </div>
         </div>
 
@@ -433,21 +610,22 @@
           <strong class="price">R 297.00</strong>
         </div>
 
-        <a href="https://app.quorapay.online/pay/ab57cdba-342e-4359-a1b2-65274f85998f" class="pay-btn">PROCEED TO PAYMENT</a>
+        <a href="https://app.quorapay.online/pay/ab57cdba-342e-4359-a1b2-65274f85998f" class="pay-btn">Proceed to payment</a>
 
+        <div class="helper">Your details are used only to complete delivery and payment.</div>
+
+        </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ================= SCRIPT ================= -->
   <script>
     const saveButton = document.getElementById("save");
     const popup = document.getElementById("popup");
     const closeButton = document.getElementById("close");
     const previewAddress = document.getElementById("previewAddress");
 
-    saveButton.addEventListener("click", function () {
+    function buildAddressPreview() {
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const address = document.getElementById("address").value.trim();
@@ -457,24 +635,37 @@
       const province = document.getElementById("province").value;
       const postal = document.getElementById("postal").value.trim();
 
-      previewAddress.innerHTML = `
+      return `
         ${name || "."}<br>
         ${phone || "."}<br>
-        ${address || "."} ${building ? ", " + building : ""}<br>
-        ${suburb || "."} ${city ? ", " + city : ""}<br>
-        Province: ${province || "Select Province"} ${postal ? "| " + postal : ""}
+        ${address || "."}${building ? ", " + building : ""}<br>
+        ${suburb || "."}${city ? ", " + city : ""}<br>
+        Province: ${province || "Select Province"}${postal ? " | " + postal : ""}
       `;
+    }
 
+    saveButton.addEventListener("click", function () {
+      previewAddress.innerHTML = buildAddressPreview();
       popup.classList.add("show");
+      document.body.style.overflow = "hidden";
     });
 
     closeButton.addEventListener("click", function () {
       popup.classList.remove("show");
+      document.body.style.overflow = "";
     });
 
     popup.addEventListener("click", function (e) {
       if (e.target === popup) {
         popup.classList.remove("show");
+        document.body.style.overflow = "";
+      }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && popup.classList.contains("show")) {
+        popup.classList.remove("show");
+        document.body.style.overflow = "";
       }
     });
   </script>
